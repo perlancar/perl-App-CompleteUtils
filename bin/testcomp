@@ -1,0 +1,94 @@
+#!perl
+
+# DATE
+# VERSION
+
+BEGIN { $ENV{TRACE} = 1 }
+
+use 5.010;
+use strict;
+use warnings;
+use Log::Any '$log';
+
+use File::Which qw(which);
+use Getopt::Long;
+use Log::Any::Adapter qw(ScreenColoredLevel);
+
+my @inc;
+Getopt::Long::Configure(
+    'no_ignore_case', 'bundling', 'no_permute', 'pass_through',
+    'auto_help', 'auto_version');
+GetOptions(
+    'include|I=s' => sub {
+        unshift @inc, $_[1];
+    },
+);
+
+@ARGV or die "testcomp: Please specify script to run as first argument\n";
+my $script = shift @ARGV;
+if (!(-f $script) && $script !~ m!/!) {
+    $script = which($script)
+        or die "testcomp: Script '$script' not found in PATH\n";
+}
+
+my $comp_line = "$script " . join(" ", @ARGV);
+my $comp_point;
+if ($comp_line =~ /\^/) {
+    $comp_point = index($comp_line, '^');
+    $comp_line =~ s/\^//;
+} else {
+    $comp_point = length($comp_line);
+}
+
+my @cmd = ($^X, (map {"-I$_"} @inc),
+           "-MLog::Any::Adapter=ScreenColoredLevel",
+           $script);
+
+$log->tracef("[testcomp] COMP_LINE=<%s>, COMP_POINT=%d",
+             $comp_line, $comp_point);
+$ENV{COMP_LINE}  = $comp_line;
+$ENV{COMP_POINT} = $comp_point;
+$log->tracef("[testcomp] exec(): %s", \@cmd);
+exec @cmd;
+
+# ABSTRACT: Test your tab completion
+# PODNAME:
+
+=head1 SYNOPSIS
+
+Usage (place caret sign (C<^>) somewhere to place cursor):
+
+ % testcomp [testcomp-options] -- <your-script> [your-script-options]^ ...
+ % testcomp [testcomp-options] -- <your-script> '[your-script-options]^ ...'
+
+Examples:
+
+ % testcomp -- yourscript --opt1 val --opt2
+ % testcomp -Ilib -- 'yourscript --opt1^  --opt2 val'
+
+
+=head1 DESCRIPTION
+
+This utility will run your script (finding it in C<PATH> if not found in current
+directory) while setting C<COMP_LINE> and C<COMP_POINT> to test how your script
+will perform shell completion. In addition to that, it will also load
+L<Log::Any::Adapter::ScreenColoredLevel> and set C<TRACE=1> to let you see trace
+log messages.
+
+You can place caret sign (C<^>) somewhere in the argument to place cursor (set
+C<COMP_POINT>)>. If no caret sign is present, C<COMP_POINT> is put at the end of
+C<COMP_LINE>.
+
+
+=head1 OPTIONS
+
+=head2 --include=dir, -I
+
+Like Perl's C<-I>.
+
+
+=head1 SEE ALSO
+
+L<App::CompleteUtils>
+
+=cut
