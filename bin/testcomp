@@ -27,8 +27,9 @@ GetOptions(
 @ARGV or die "testcomp: Please specify script to run as first argument\n";
 my $script = shift @ARGV;
 if (!(-f $script) && $script !~ m!/!) {
-    $script = which($script)
+    my $script_p = which($script)
         or die "testcomp: Script '$script' not found in PATH\n";
+    $script = $script_p;
 }
 
 my $comp_line = "$script " . join(" ", @ARGV);
