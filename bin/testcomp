@@ -92,4 +92,9 @@ Like Perl's C<-I>.
 
 L<App::CompleteUtils>
 
+You can use this utility to test scripts using these frameworks:
+L<Perinci::CmdLine>, L<Getopt::Long::Complete>, L<Getopt::Long::Subcommand>. But
+actually all scripts which can complete itself by detecting C<COMP_LINE> and
+C<COMP_POINT> can be tested.
+
 =cut

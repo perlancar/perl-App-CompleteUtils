@@ -20,7 +20,4 @@ This distribution provides several command-line utilities related to
 
 L<Complete>
 
-Frameworks you can test this with: L<Perinci::CmdLine>,
-L<Getopt::Long::Complete>, L<Getopt::Long::Subcommand>.
-
 =cut
