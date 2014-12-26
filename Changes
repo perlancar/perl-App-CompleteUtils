@@ -1,5 +1,10 @@
 Revision history for App-CompleteUtils
 
+0.02    2014-12-27 (PERLANCAR)
+
+	- Add a (for now) simple completion script for testcomp.
+
+
 0.01    2014-12-26 (PERLANCAR)
 
         - First release.
