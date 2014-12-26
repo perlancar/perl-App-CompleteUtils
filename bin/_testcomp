@@ -1,0 +1,44 @@
+#!perl
+
+# DATE
+# VERSION
+# FRAGMENT id=shcompgen-hint completer=1 for=testcomp
+
+use 5.010;
+use strict;
+use warnings;
+
+use Getopt::Long::Complete qw(GetOptionsWithCompletion);
+
+die "This script is for shell completion only\n"
+        unless $ENV{COMP_LINE};
+
+GetOptionsWithCompletion(
+    sub {
+        my %args = @_;
+
+        my $word = $args{word} // '';
+        my $type = $args{type};
+        my $argpos = $args{argpos};
+
+        # XXX complete -I with module name
+
+        if ($type eq 'arg' && $argpos == 0) {
+            require Complete::Util;
+            Complete::Util::combine_answers(
+                Complete::Util::complete_file(word=>$word),
+                Complete::Util::complete_program(word=>$word),
+            );
+        }
+
+        # XXX complete arguments argpos>0 by trying to pass COMP_LINE and
+        # COMP_POINT to program in argpos 0. that would be cool, e.g. 'testcomp
+        # fatten --tra<tab>' can complete fatten command.
+
+    },
+    'include|I=s' => sub {},
+);
+
+# ABSTRACT: Completion script for testcomp
+# PODNAME:
+
