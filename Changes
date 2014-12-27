@@ -1,5 +1,12 @@
 Revision history for App-CompleteUtils
 
+0.03    2014-12-27 (PERLANCAR)
+
+	- No functional changes.
+
+	- Move items from See Also from App::CompleteUtils to bin/testcomp.
+
+
 0.02    2014-12-27 (PERLANCAR)
 
 	- Add a (for now) simple completion script for testcomp.
