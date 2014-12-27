@@ -8,7 +8,7 @@ use strict;
 use warnings;
 
 1;
-# ABSTRACT: Collection of CLI utilities for Dist::Zilla
+# ABSTRACT: Collection of CLI utilities related to completion and Complete::*
 
 =head1 SYNOPSIS
 
