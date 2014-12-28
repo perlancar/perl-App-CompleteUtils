@@ -13,6 +13,7 @@ use Log::Any '$log';
 use File::Which qw(which);
 use Getopt::Long;
 use Log::Any::Adapter qw(ScreenColoredLevel);
+use String::ShellQuote;
 
 my @inc;
 Getopt::Long::Configure(
@@ -32,7 +33,16 @@ if (!(-f $script) && $script !~ m!/!) {
     $script = $script_p;
 }
 
-my $comp_line = "$script " . join(" ", @ARGV);
+my $comp_line = "$script ";
+if (@ARGV == 1 && $ARGV[0] =~ /\s/) {
+    # user types: scriptname 'arg1 arg2 ...'. we should split the quoted args
+    $comp_line .= join(" ", @ARGV);
+} else {
+    # user types: scriptname 'arg1' 'arg two'. we should re-quote to avoid the
+    # space inside arg value to split args.
+    $comp_line .= join(" ", map {shell_quote($_)} @ARGV);
+}
+
 my $comp_point;
 if ($comp_line =~ /\^/) {
     $comp_point = index($comp_line, '^');
