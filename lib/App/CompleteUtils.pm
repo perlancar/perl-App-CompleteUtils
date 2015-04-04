@@ -13,7 +13,9 @@ use warnings;
 =head1 SYNOPSIS
 
 This distribution provides several command-line utilities related to
-(shell) completion and the L<Complete> modules family.
+(shell) completion and the L<Complete> modules family:
+
+# INSERT_EXECS_LIST
 
 
 =head1 SEE ALSO
