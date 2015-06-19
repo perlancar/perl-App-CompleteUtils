@@ -1,5 +1,13 @@
 Revision history for App-CompleteUtils
 
+0.06    2015-06-19 (PERLANCAR)
+
+	- No functional changes.
+
+	- Update prereq name
+	  Log::Any::Adapter::{ScreenColoredLevel,Screen}.
+
+
 0.05    2014-12-29 (PERLANCAR)
 
 	- No functional changes.
