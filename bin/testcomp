@@ -8,7 +8,7 @@ BEGIN { $ENV{TRACE} = 1 }
 use 5.010;
 use strict;
 use warnings;
-use Log::Any '$log';
+use Log::Any::IfLOG '$log';
 
 use File::Which qw(which);
 use Getopt::Long;
