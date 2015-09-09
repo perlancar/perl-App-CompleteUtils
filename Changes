@@ -1,5 +1,12 @@
 Revision history for App-CompleteUtils
 
+0.09    2015-09-09 (PERLANCAR)
+
+	- No functional changes.
+
+	- [dist] Remove prereq: Complete because it is not directly used.
+
+
 0.08    2015-08-18 (PERLANCAR)
 
 	- No functional changes.
