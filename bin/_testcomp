@@ -24,10 +24,12 @@ GetOptionsWithCompletion(
         # XXX complete -I with module name
 
         if ($type eq 'arg' && $argpos == 0) {
+            require Complete::File;
+            require Complete::Program;
             require Complete::Util;
             Complete::Util::combine_answers(
-                Complete::Util::complete_file(word=>$word),
-                Complete::Util::complete_program(word=>$word),
+                Complete::File::complete_file(word=>$word),
+                Complete::Program::complete_program(word=>$word),
             );
         }
 
@@ -41,4 +43,3 @@ GetOptionsWithCompletion(
 
 # ABSTRACT: Completion script for testcomp
 # PODNAME:
-
