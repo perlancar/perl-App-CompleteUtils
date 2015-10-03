@@ -35,7 +35,7 @@ GetOptionsWithCompletion(
 
         # XXX complete arguments argpos>0 by trying to pass COMP_LINE and
         # COMP_POINT to program in argpos 0. that would be cool, e.g. 'testcomp
-        # fatten --tra<tab>' can complete fatten command.
+        # depak --tra<tab>' can complete depak command.
 
     },
     'include|I=s' => sub {},
