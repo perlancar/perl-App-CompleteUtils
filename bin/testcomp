@@ -55,10 +55,11 @@ my @cmd = ($^X, (map {"-I$_"} @inc),
            "-MLog::Any::Adapter=Screen",
            $script);
 
-$log->tracef("[testcomp] COMP_LINE=<%s>, COMP_POINT=%d",
+$log->tracef("[testcomp] COMP_LINE/COMMAND_LINE=<%s>, COMP_POINT=%d",
              $comp_line, $comp_point);
 $ENV{COMP_LINE}  = $comp_line;
 $ENV{COMP_POINT} = $comp_point;
+$ENV{COMMAND_LINE} = $comp_line; # for tcsh
 $log->tracef("[testcomp] exec(): %s", \@cmd);
 exec @cmd;
 
@@ -81,10 +82,10 @@ Examples:
 =head1 DESCRIPTION
 
 This utility will run your script (finding it in C<PATH> if not found in current
-directory) while setting C<COMP_LINE> and C<COMP_POINT> to test how your script
-will perform shell completion. In addition to that, it will also load
-L<Log::Any::Adapter::Screen> and set C<TRACE=1> to let you see trace log
-messages.
+directory) while setting C<COMP_LINE> (as well as C<COMMAND_LINE>, for tcsh) and
+C<COMP_POINT> to test how your script will perform shell completion. In addition
+to that, it will also load L<Log::Any::Adapter::Screen> and set C<TRACE=1> to
+let you see trace log messages.
 
 You can place caret sign (C<^>) somewhere in the argument to place cursor (set
 C<COMP_POINT>)>. If no caret sign is present, C<COMP_POINT> is put at the end of
