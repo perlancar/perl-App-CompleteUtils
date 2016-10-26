@@ -60,7 +60,8 @@ if ($ENV{COMP_LINE} || $ENV{COMMAND_LINE}) {
 } else {
 
     require Getopt::Long;
-    GetOptions(
+    Getopt::Long::Configure('no_ignore_case', 'bundling', 'permute');
+    Getopt::Long::GetOptions(
         'help|h|?' => sub {
             print <<'_';
 compwithargs - Show completion from words specified in command-line arguments
@@ -75,7 +76,6 @@ _
             exit 0;
         },
     );
-
 }
 
 # ABSTRACT: Show completion from words specified in command-line arguments
