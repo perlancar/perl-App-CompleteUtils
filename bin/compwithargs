@@ -1,0 +1,114 @@
+#!perl
+
+# DATE
+# VERSION
+
+use 5.010001;
+use strict;
+use warnings;
+
+if ($ENV{COMP_LINE} || $ENV{COMMAND_LINE}) {
+
+    my $shell;
+    if ($ENV{COMP_SHELL}) {
+        ($shell = $ENV{COMP_SHELL}) =~ s!.+/!!;
+    } elsif ($ENV{COMMAND_LINE}) {
+        $shell = 'tcsh';
+    } else {
+        $shell = 'bash';
+    }
+
+    my ($words, $cword);
+    if ($ENV{COMP_LINE}) {
+        require Complete::Bash;
+        ($words,$cword) = @{ Complete::Bash::parse_cmdline(undef, undef, {truncate_current_word=>1}) };
+        ($words,$cword) = @{ Complete::Bash::join_wordbreak_words($words, $cword) };
+    } elsif ($ENV{COMMAND_LINE}) {
+        require Complete::Tcsh;
+        $shell //= 'tcsh';
+        ($words, $cword) = @{ Complete::Tcsh::parse_cmdline() };
+    }
+
+    shift @$words; $cword--; # strip program name
+    require Complete::Util;
+    my $word = splice @$words, $cword, 1;
+    my $compres = Complete::Util::complete_array_elem(
+        word  => $word,
+        array => $words,
+    );
+
+    if ($shell eq 'bash') {
+        require Complete::Bash;
+        print Complete::Bash::format_completion(
+            $compres, {word=>$words->[$cword]});
+    } elsif ($shell eq 'fish') {
+        require Complete::Fish;
+        print Complete::Bash::format_completion(
+            $compres, {word=>$words->[$cword]});
+    } elsif ($shell eq 'tcsh') {
+        require Complete::Tcsh;
+        print Complete::Tcsh::format_completion($compres);
+    } elsif ($shell eq 'zsh') {
+        require Complete::Zsh;
+        print Complete::Zsh::format_completion($compres);
+    } else {
+        die "Unknown shell '$shell'";
+    }
+
+    exit 0;
+
+} else {
+
+    require Getopt::Long;
+    GetOptions(
+        'help|h|?' => sub {
+            print <<'_';
+compwithargs - Show completion from words specified in command-line arguments
+Usage:
+  compwith word1 word2 word3 <tab>
+Options:
+_
+            exit 0;
+        },
+        'version|v' => sub {
+            print "compwithargs version ", ($main::VERSION // 'dev'), "\n";
+            exit 0;
+        },
+    );
+
+}
+
+# ABSTRACT: Show completion from words specified in command-line arguments
+# PODNAME:
+
+=head1 SYNOPSIS
+
+ % compwithargs apple banana apricot <tab>
+ apple
+ apricot
+ banana
+
+ % compwithargs apple banana apricot a<tab>
+ apple
+ apricot
+
+
+=head1 DESCRIPTION
+
+This utility simply uses words from command-line arguments (except the last one)
+for completion.
+
+
+=head1 OPTIONS
+
+=head2 --help, -h, -?
+
+=head2 --version, -v
+
+
+=head1 SEE ALSO
+
+L<complete-array-elem> from L<App::CompleteCLIs> (which in turn is a CLI for
+C<complete_array_elem()> function in L<Complete::Util>).
+
+=cut
