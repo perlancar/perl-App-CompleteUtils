@@ -1,5 +1,12 @@
 Revision history for App-CompleteUtils
 
+0.12    2016-10-26 (PERLANCAR)
+
+	- testcomp: Also set COMMAND_LINE, for tcsh.
+
+	- compwithargs: Forgot to set hint for shcompgen.
+
+
 0.11    2015-10-26 (PERLANCAR)
 
         - Add utility: compwithargs.
