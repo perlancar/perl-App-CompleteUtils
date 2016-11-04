@@ -1,5 +1,14 @@
 Revision history for App-CompleteUtils
 
+0.13    2016-11-04 (PERLANCAR)
+
+	- testcomp: Add options: --shell (-s), --bash, --fish, --tcsh, --zsh to
+	  set shell explicitly.
+
+	- [Bugfix] testcomp: Don't set COMMAND_LINE unless we detect shell is
+          'tcsh'.
+
+
 0.12    2016-10-26 (PERLANCAR)
 
 	- testcomp: Also set COMMAND_LINE, for tcsh.
