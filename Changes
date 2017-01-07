@@ -1,5 +1,3 @@
-Revision history for App-CompleteUtils
-
 0.13    2016-11-04 (PERLANCAR)
 
 	- testcomp: Add options: --shell (-s), --bash, --fish, --tcsh, --zsh to
