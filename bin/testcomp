@@ -12,7 +12,7 @@ use Log::ger;
 
 use File::Which qw(which);
 use Getopt::Long;
-use Log::Any::Adapter qw(Screen);
+use Log::ger::Output qw(Screen);
 use String::ShellQuote;
 
 my %Opts = (
@@ -69,7 +69,7 @@ if ($comp_line =~ /\^/) {
 }
 
 my @cmd = ($^X, (map {"-I$_"} @inc),
-           "-MLog::Any::Adapter=Screen",
+           "-MLog::ger::Output=Screen",
            $script);
 
 if ($Opts{shell} eq 'tcsh') {
@@ -104,7 +104,7 @@ Examples:
 This utility will run your script (finding it in C<PATH> if not found in current
 directory) while setting C<COMP_LINE> and C<COMP_POINT> to test how your script
 will perform shell completion. In addition to that, it will also load
-L<Log::Any::Adapter::Screen> and set C<TRACE=1> to let you see trace log
+L<Log::ger::Output::Screen> and set C<TRACE=1> to let you see trace log
 messages.
 
 You can place caret sign (C<^>) somewhere in the argument to place cursor (set
