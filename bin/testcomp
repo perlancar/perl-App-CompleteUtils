@@ -8,7 +8,7 @@ BEGIN { $ENV{TRACE} = 1 }
 use 5.010;
 use strict;
 use warnings;
-use Log::Any::IfLOG '$log';
+use Log::ger;
 
 use File::Which qw(which);
 use Getopt::Long;
@@ -73,14 +73,14 @@ my @cmd = ($^X, (map {"-I$_"} @inc),
            $script);
 
 if ($Opts{shell} eq 'tcsh') {
-    $log->tracef("[testcomp] COMMAND_LINE=<%s>", $comp_line);
+    log_trace("[testcomp] COMMAND_LINE=<%s>", $comp_line);
     $ENV{COMMAND_LINE} = $comp_line;
 } else {
-    $log->tracef("[testcomp] COMP_LINE=<%s>, COMP_POINT=%d", $comp_line, $comp_point);
+    log_trace("[testcomp] COMP_LINE=<%s>, COMP_POINT=%d", $comp_line, $comp_point);
     $ENV{COMP_LINE}  = $comp_line;
     $ENV{COMP_POINT} = $comp_point;
 }
-$log->tracef("[testcomp] exec(): %s", \@cmd);
+log_trace("[testcomp] exec(): %s", \@cmd);
 exec @cmd;
 
 # ABSTRACT: Test your tab completion
