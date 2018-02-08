@@ -70,6 +70,7 @@ if ($comp_line =~ /\^/) {
 }
 
 my @cmd = ($^X, (map {"-I$_"} @inc),
+           "-MLog::ger::Level::FromEnv",
            "-MLog::ger::Output=Screen",
            $script);
 
