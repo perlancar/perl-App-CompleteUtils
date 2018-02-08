@@ -12,6 +12,7 @@ use Log::ger;
 
 use File::Which qw(which);
 use Getopt::Long;
+use Log::ger::Level::FromEnv;
 use Log::ger::Output qw(Screen);
 use String::ShellQuote;
 
