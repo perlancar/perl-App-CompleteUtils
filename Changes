@@ -1,3 +1,9 @@
+0.17    2020-04-16  Released-By: PERLANCAR; Urgency: medium
+
+	- testcomp: Avoid quoting '--foo=bar' so Complete::Bash's breaking
+	  of words per word-breaking characters can still happen.
+
+
 0.16    2018-02-08  Released-By: PERLANCAR
 
 	- testcomp: Update to make log statements shown again.
