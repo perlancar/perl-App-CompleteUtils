@@ -14,7 +14,18 @@ use File::Which qw(which);
 use Getopt::Long;
 use Log::ger::Level::FromEnv;
 use Log::ger::Output qw(Screen);
-use String::ShellQuote;
+
+sub _shell_quote_arg {
+    require String::ShellQuote;
+    # pass some strings unquoted: foo=bar is quoted into 'foo=bar' by
+    # String::ShellQuote; skip quoting it
+    #say "D:<$_[0]>";
+    if ($_[0] =~ /\A[A-Za-z0-9_=^-]+\z/) {
+        return $_[0];
+    } else {
+        return String::ShellQuote::shell_quote($_[0]);
+    }
+}
 
 my %Opts = (
     shell => undef,
@@ -58,7 +69,7 @@ if (@ARGV == 1 && $ARGV[0] =~ /\s/) {
 } else {
     # user types: scriptname 'arg1' 'arg two'. we should re-quote to avoid the
     # space inside arg value to split args.
-    $comp_line .= join(" ", map {shell_quote($_)} @ARGV);
+    $comp_line .= join(" ", map {_shell_quote_arg($_)} @ARGV);
 }
 
 my $comp_point;
