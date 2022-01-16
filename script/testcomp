@@ -84,7 +84,7 @@ if ($comp_line =~ /\^/) {
 
 my @cmd = ($^X, (map {"-I$_"} @inc),
            "-MLog::ger::Level::FromEnv",
-           "-MLog::ger::Output=Screen",
+           "-MLog::ger::Output=Screen,colorize_tags,1",
            $script);
 
 if ($Opts{shell} eq 'tcsh') {
