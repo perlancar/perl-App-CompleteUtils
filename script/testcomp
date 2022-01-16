@@ -1,19 +1,21 @@
 #!perl
 
-# DATE
-# VERSION
-
-BEGIN { $ENV{TRACE} = 1 }
-
 use 5.010;
 use strict;
 use warnings;
 use Log::ger;
 
+BEGIN { $ENV{TRACE} = 1 }
+
 use File::Which qw(which);
 use Getopt::Long;
 use Log::ger::Level::FromEnv;
-use Log::ger::Output qw(Screen);
+use Log::ger::Output Screen => (colorize_tags=>1);
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 sub _shell_quote_arg {
     require String::ShellQuote;
