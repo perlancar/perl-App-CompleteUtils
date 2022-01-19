@@ -1,11 +1,13 @@
 package App::CompleteUtils;
 
-# DATE
-# VERSION
-
 use 5.010001;
 use strict;
 use warnings;
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 1;
 # ABSTRACT: Collection of CLI utilities related to completion and Complete::*

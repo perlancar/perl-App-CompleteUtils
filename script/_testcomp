@@ -1,7 +1,5 @@
 #!perl
 
-# DATE
-# VERSION
 # FRAGMENT id=shcompgen-hint completer=1 for=testcomp
 
 use 5.010;
@@ -9,6 +7,11 @@ use strict;
 use warnings;
 
 use Getopt::Long::Complete qw(GetOptionsWithCompletion);
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 die "This script is for shell completion only\n"
         unless $ENV{COMP_LINE};
